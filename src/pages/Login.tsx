@@ -1,5 +1,6 @@
 import React, {SyntheticEvent, useState} from 'react';
 import {Redirect} from "react-router-dom";
+import "./form.css"
 
 const Login = (props: { setName: (name: string) => void }) => {
     const [email, setEmail] = useState('');
@@ -17,20 +18,34 @@ const Login = (props: { setName: (name: string) => void }) => {
                 email,
                 password
             })
-        });
+        }).then(async (response)=> {
+            console.log(response)
+            if(response.status === 201){
+              alert("You are successfully Logged In.")
+              setRedirect(true);
+              const content = await response.json();
+             props.setName(content.name);
+            
+              
+             
+            }
+            if(response.status === 400){
+              alert("Invalid Credentials.")
+            }
+          });
 
-        const content = await response.json();
-
-        setRedirect(true);
-        props.setName(content.name);
+        
     }
 
     if (redirect) {
+        localStorage.setItem('refreshFlag', 'true');
+
         return <Redirect to="/"/>;
     }
 
     return (
-        <form onSubmit={submit}>
+        <div className="register-container">
+        <form onSubmit={submit} className="register-form">
             <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
             <input type="email" className="form-control" placeholder="Email address" required
                    onChange={e => setEmail(e.target.value)}
@@ -40,8 +55,9 @@ const Login = (props: { setName: (name: string) => void }) => {
                    onChange={e => setPassword(e.target.value)}
             />
 
-            <button className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            <button  className="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
         </form>
+        </div>
     );
 };
 

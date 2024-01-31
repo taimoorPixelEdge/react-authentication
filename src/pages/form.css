@@ -1,0 +1,20 @@
+/* Add your custom styles here */
+
+body {
+    height: 100vh;
+    background-image: url('https://github.com/Chloeaaa/careerAI/blob/main/src/assets/bg.png?raw=true'); /* Replace with your background image */
+    background-size: cover;
+  }
+  
+  .register-container {
+    background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .register-form {
+    max-width: 400px;
+    margin: auto;
+  }
+  
